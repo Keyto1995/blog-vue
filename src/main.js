@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import axios from "axios";
+
 import { Button, message } from "ant-design-vue";
 
 import "@/assets/css/tailwind.css";
@@ -13,6 +15,9 @@ Vue.config.productionTip = false;
 Vue.use(Button);
 
 Vue.prototype.$message = message;
+
+axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "tru" : "/api";
+Vue.prototype.$axios = axios;
 
 new Vue({
   router,

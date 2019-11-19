@@ -1,16 +1,37 @@
 <template>
-  <div>
-    <ArticleListItem :article="articles[0]" />
-  </div>
+  <ul>
+    <li
+      class="my-4 px-6 py-3 bg-gray-100 border border-gray-400"
+      v-for="article in articles"
+      :key="article.id"
+    >
+      <a :href="'/articles/' + article.id">
+        <span class="block text-teal-600 text-xl">{{ article.title }}</span>
+        <span>{{ article.description }}</span>
+      </a>
+      <hr class="my-2" />
+      <div class="px-4">
+        标签：
+        <ul class="inline">
+          <li
+            class="rounded-full border-dashed border bg-gray-300 inline-block px-2"
+            v-for="tag in article.tags"
+            :key="tag.id"
+          >
+            <a th:href="'/tags/'+tag.id">
+              <span>{{ tag.name }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>
-import ArticleListItem from "@/components/ArticleListItem.vue";
 export default {
   name: "ArticleList",
-  components: {
-    ArticleListItem,
-  },
+  components: {},
   data() {
     return {
       articles: [
@@ -22,6 +43,16 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.getArticles();
+  },
+  methods: {
+    getArticles: function() {
+      this.$axios.get("/articles/published").then(response => {
+        this.articles = response.data.content;
+      });
+    },
   },
 };
 </script>
