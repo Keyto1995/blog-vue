@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ArticleListItem :article="article" />
+    <ArticleListItem :article="articles[0]" />
   </div>
 </template>
 
@@ -13,14 +13,14 @@ export default {
   },
   data() {
     return {
-      article: {
-        id: 12,
-        title: "title",
-        description: "aescription",
-        tags: [
-          {name: "name"},
-        ],
-      },
+      articles: [
+        {
+          id: 12,
+          title: "title",
+          description: "aescription",
+          tags: [{ name: "name" }],
+        },
+      ],
     };
   },
 };
