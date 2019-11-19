@@ -5,7 +5,7 @@ import store from "./store";
 
 import { Button, message } from "ant-design-vue";
 
-import '@/assets/css/tailwind.css'
+import "@/assets/css/tailwind.css";
 
 Vue.config.productionTip = false;
 

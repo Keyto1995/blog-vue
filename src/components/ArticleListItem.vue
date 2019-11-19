@@ -3,9 +3,9 @@
     class="my-4 px-6 py-3 bg-gray-100 border border-gray-400"
     th:each="article,articleStat:${articles}"
   >
-    <a :href="'/articles/'+article.id">
-      <span class="block text-teal-600 text-xl">{{article.title}}</span>
-      <span>{{article.description}}</span>
+    <a :href="'/articles/' + article.id">
+      <span class="block text-teal-600 text-xl">{{ article.title }}</span>
+      <span>{{ article.description }}</span>
     </a>
     <hr class="my-2" />
     <div class="px-4">
@@ -16,7 +16,7 @@
           th:each="tag,tagStat:${article.getTags()}"
         >
           <a th:href="@{'/tags/'+${tag.id}}">
-            <span>{{article.tags[0].name}}</span>
+            <span>{{ article.tags[0].name }}</span>
           </a>
         </li>
       </ul>
@@ -33,5 +33,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
