@@ -3,7 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import { Button, message } from "ant-design-vue";
+
 Vue.config.productionTip = false;
+
+// 注册antd组件
+Vue.use(Button);
+
+Vue.prototype.$message = message;
 
 new Vue({
   router,
