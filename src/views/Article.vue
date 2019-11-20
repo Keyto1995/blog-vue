@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto my-5 px-5">
     <Markdown :md="article.content" />
   </div>
 </template>

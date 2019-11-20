@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container mx-auto">
+    <div class="container mx-auto px-5">
       <ul>
         <li
           class="my-4 px-6 py-3 bg-gray-100 border border-gray-400"

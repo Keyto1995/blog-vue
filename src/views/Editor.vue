@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container mx-auto my-5 px-5">
     <MarkdownEditor />
   </div>
 </template>
