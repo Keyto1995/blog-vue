@@ -7,12 +7,14 @@
           @click="new_tag_form()"
           class="m-2 px-3 bg-green-400 text-white"
           type="button"
-        >New Tag</button>
+        >
+          New Tag
+        </button>
       </div>
       <div class="flex m-5 bg-white" style="height: 50rem">
         <div class="w-2/3 overflow-y-auto">
           <div
-            :class="[selected_id===tag.id ? 'bg-teal-100' : '']"
+            :class="[selected_id === tag.id ? 'bg-teal-100' : '']"
             @click="select_tag(tag)"
             class="flex justify-between items-center p-5 border-b cursor-pointer"
             v-for="tag in tags"
@@ -20,12 +22,14 @@
           >
             <div class>
               <div class>
-                <span class="text-xl font-bold">{{tag.name}}</span>
-                <span class="rounded-sm bg-gray-200 text-gray-600 px-1">/{{tag.url}}</span>
+                <span class="text-xl font-bold">{{ tag.name }}</span>
+                <span class="rounded-sm bg-gray-200 text-gray-600 px-1"
+                  >/{{ tag.url }}</span
+                >
               </div>
-              <span class="text-gray-700">{{tag.description}}</span>
+              <span class="text-gray-700">{{ tag.description }}</span>
             </div>
-            <div class="text-teal-700">{{tag.countArticle}}</div>
+            <div class="text-teal-700">{{ tag.countArticle }}</div>
           </div>
         </div>
         <div class="flex flex-col px-5 w-1/3 border-l">
@@ -39,16 +43,24 @@
           />
 
           <label class="mb-2 font-medium" for="tag_url">URL</label>
-          <input class="border mb-4 px-3 py-1 w-full" id="tag_url" v-model.trim="new_tag.url" />
+          <input
+            class="border mb-4 px-3 py-1 w-full"
+            id="tag_url"
+            v-model.trim="new_tag.url"
+          />
 
-          <label class="mb-2 font-medium" for="tag_description">Description</label>
+          <label class="mb-2 font-medium" for="tag_description"
+            >Description</label
+          >
           <textarea
             class="border mb-4 px-3 py-1 w-full h-32"
             id="tag_description"
             v-model.trim="new_tag.description"
           ></textarea>
           <div class="flex justify-between">
-            <button @click="delete_tag()" class="text-red-700">Delete Tag</button>
+            <button @click="delete_tag()" class="text-red-700">
+              Delete Tag
+            </button>
             <button @click="post_tag()" class="text-green-700">Save</button>
           </div>
         </div>

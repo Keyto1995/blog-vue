@@ -17,6 +17,12 @@ const routes = [
       import(/* webpackChunkName: "article" */ "../views/Article.vue"),
   },
   {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+  },
+  {
     path: "/manager/tags",
     name: "tagManager",
     component: () =>
