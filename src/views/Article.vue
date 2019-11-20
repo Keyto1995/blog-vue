@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import Markdown from "../components/Markdown";
+import Markdown from "@/components/Markdown";
 
 export default {
-  name: "web-article",
+  name: "article_",
   components: {
     Markdown,
   },
