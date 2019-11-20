@@ -38,21 +38,14 @@ export default {
   components: {},
   data() {
     return {
-      articles: [
-        {
-          id: 12,
-          title: "title",
-          description: "aescription",
-          tags: [{ name: "name" }],
-        },
-      ],
+      articles: [],
     };
   },
   mounted() {
     this.getArticles();
   },
   methods: {
-    getArticles: function() {
+    getArticles() {
       this.$axios.get("/articles/published").then(response => {
         this.articles = response.data.content;
       });
