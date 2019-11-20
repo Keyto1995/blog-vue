@@ -18,7 +18,8 @@ export default {
     };
   },
   beforeMount() {
-    this.getArticle(17080025777963008);
+    console.log(this.$route.params.id);
+    this.getArticle(this.$route.params.id);
   },
   methods: {
     getArticle(id) {

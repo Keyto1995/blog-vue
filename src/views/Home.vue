@@ -7,10 +7,10 @@
           v-for="article in articles"
           :key="article.id"
         >
-          <a :href="'/articles/' + article.id">
+          <router-link :to="'/articles/'+article.id">
             <span class="block text-teal-600 text-xl">{{ article.title }}</span>
             <span>{{ article.description }}</span>
-          </a>
+          </router-link>
           <hr class="my-2" />
           <div class="px-4">
             标签：

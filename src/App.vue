@@ -4,9 +4,9 @@
       <div class="w-full px-6">
         <div class="flex items-center justify-between">
           <div class="w-48">
-            <a href="/">
+            <router-link to="/">
               <span class="text-2xl truncate">Keytoの个人博客</span>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
