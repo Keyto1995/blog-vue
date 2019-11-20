@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="text-gray-900">
     <header
       class="flex bg-white border-b border-gray-200 fixed inset-x-0 h-16 items-center"
     >
