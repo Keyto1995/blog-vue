@@ -1,17 +1,62 @@
 <template>
   <div class="home">
     <div class="container mx-auto">
-      <ArticleList />
+      <ul>
+        <li
+          class="my-4 px-6 py-3 bg-gray-100 border border-gray-400"
+          v-for="article in articles"
+          :key="article.id"
+        >
+          <a :href="'/articles/' + article.id">
+            <span class="block text-teal-600 text-xl">{{ article.title }}</span>
+            <span>{{ article.description }}</span>
+          </a>
+          <hr class="my-2" />
+          <div class="px-4">
+            标签：
+            <ul class="inline">
+              <li
+                class="mr-1 rounded-full border-dashed border bg-gray-300 inline-block px-2"
+                v-for="tag in article.tags"
+                :key="tag.id"
+              >
+                <a th:href="'/tags/'+tag.id">
+                  <span>{{ tag.name }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import ArticleList from "@/components/ArticleList";
 export default {
   name: "home",
-  components: {
-    ArticleList,
+  components: {},
+  data() {
+    return {
+      articles: [
+        {
+          id: 12,
+          title: "title",
+          description: "aescription",
+          tags: [{ name: "name" }],
+        },
+      ],
+    };
+  },
+  mounted() {
+    this.getArticles();
+  },
+  methods: {
+    getArticles: function() {
+      this.$axios.get("/articles/published").then(response => {
+        this.articles = response.data.content;
+      });
+    },
   },
 };
 </script>
