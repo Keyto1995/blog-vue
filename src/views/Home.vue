@@ -7,7 +7,7 @@
           v-for="article in articles"
           :key="article.id"
         >
-          <router-link :to="'/articles/'+article.id">
+          <router-link :to="'/articles/' + article.id">
             <span class="block text-teal-600 text-xl">{{ article.title }}</span>
             <span>{{ article.description }}</span>
           </router-link>
@@ -20,9 +20,9 @@
                 v-for="tag in article.tags"
                 :key="tag.id"
               >
-                <a th:href="'/tags/'+tag.id">
+                <router-link :to="'/tags/' + tag.id">
                   <span>{{ tag.name }}</span>
-                </a>
+                </router-link>
               </li>
             </ul>
           </div>

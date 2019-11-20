@@ -17,6 +17,11 @@ const routes = [
       import(/* webpackChunkName: "article" */ "../views/Article.vue"),
   },
   {
+    path: "/tags/:id",
+    name: "tag",
+    component: () => import(/* webpackChunkName: "tag" */ "../views/Tag.vue"),
+  },
+  {
     path: "/editor",
     name: "editor",
     component: () =>
