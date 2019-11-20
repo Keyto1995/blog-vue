@@ -16,7 +16,8 @@ Vue.use(Button);
 
 Vue.prototype.$message = message;
 
-axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "tru" : "/api";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production" ? "https://api.keyto.top/" : "/api";
 Vue.prototype.$axios = axios;
 
 new Vue({
