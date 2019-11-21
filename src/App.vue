@@ -6,7 +6,7 @@
       <div class="w-full px-6">
         <div class="flex items-center justify-between">
           <div class="w-48">
-            <router-link to="/editor">
+            <router-link to="/">
               <span class="text-2xl truncate">Keytoの个人博客</span>
             </router-link>
           </div>
