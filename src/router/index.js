@@ -39,7 +39,7 @@ const routes = [
     name: "editor",
     component: () =>
       import(/* webpackChunkName: "editor" */ "../views/Editor.vue"),
-    meta: { roles: ["AUTHOR"] },
+    meta: { roles: ["ADMIN", "AUTHOR"] },
   },
   {
     path: "/about",

@@ -51,12 +51,9 @@ export default {
           password: this.password,
         })
         .then(response => {
-          return response.data;
-        })
-        .then(data => {
-          if (data.authenticated === true) {
+          if (response.data.authenticated === true) {
             // 认证通过
-            let roles = data.authorities.map(role => {
+            let roles = response.data.authorities.map(role => {
               if (/^ROLE_.*/i.test(role.authority)) {
                 return role.authority.slice(5);
               }

@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     // 存储用户权限信息
     roles: [],
@@ -14,9 +14,18 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    setRoles: ({ commit }, { roles }) => {
-      commit("addRoles", { roles });
+    setRoles: (context, { roles }) => {
+      context.commit("setRoles", { roles });
     },
   },
   modules: {},
 });
+
+// 在页面加载时读取sessionStorage里的状态信息
+if (sessionStorage.getItem("store")) {
+  store.replaceState(
+    Object.assign({}, store.state, JSON.parse(sessionStorage.getItem("store")))
+  );
+}
+
+export default store;
