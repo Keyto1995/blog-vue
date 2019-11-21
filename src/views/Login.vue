@@ -51,7 +51,21 @@ export default {
           password: this.password,
         })
         .then(response => {
-          console.log(response.data);
+          return response.data;
+        })
+        .then(data => {
+          if (data.authenticated === true) {
+            // 认证通过
+            let roles = data.authorities.map(role => {
+              if (/^ROLE_.*/i.test(role.authority)) {
+                return role.authority.slice(5);
+              }
+            });
+            this.$store.commit("setRoles", {
+              roles,
+            });
+            this.$router.go(-1);
+          }
         });
     },
   },

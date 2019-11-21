@@ -27,6 +27,7 @@ const routes = [
     name: "tagManager",
     component: () =>
       import(/* webpackChunkName: "tagManager" */ "../views/TagManager.vue"),
+    meta: { roles: ["ADMIN"] },
   },
   {
     path: "/tags/:id",
@@ -38,6 +39,7 @@ const routes = [
     name: "editor",
     component: () =>
       import(/* webpackChunkName: "editor" */ "../views/Editor.vue"),
+    meta: { roles: ["AUTHOR"] },
   },
   {
     path: "/about",
@@ -54,6 +56,24 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  let needRoles = to.matched[0].meta.roles;
+  if (!needRoles || needRoles.length === 0) {
+    next();
+  } else {
+    let roles = router.app.$options.store.state.roles;
+    if (roles.length === 0) {
+      next("/login");
+    } else {
+      if (needRoles.filter(v => roles.includes(v)).length === 0) {
+        next("/login");
+      } else {
+        next();
+      }
+    }
+  }
 });
 
 export default router;
