@@ -5,18 +5,42 @@
       mode="multiple"
       class="w-full"
       :value="selectedTagIds"
-      @change="handleChange"
+      @change="value => (this.selectedTagIds = value)"
       placeholder="Please select"
     >
       <a-select-option v-for="tag in tags" :key="tag.id">
         {{ tag.name }}
       </a-select-option>
     </a-select>
-    <a-button>Publish</a-button>
+    <a-popover
+      title="Ready to publish you article"
+      trigger="click"
+      placement="bottom"
+    >
+      <template slot="content">
+        <a-radio-group name="radioGroup" :defaultValue="1">
+          <a-radio class="block" :value="1">
+            <span class="inline-block text-lg">Set it live now</span>
+            <span class="block">Publish this post immediately</span>
+          </a-radio>
+          <a-radio class="block" :value="2">
+            <span class="inline-block text-lg">Schedule it for later</span>
+            <a-date-picker
+              class="block"
+              @change="onChange"
+              :disabledDate="current => current < moment().subtract(1, 'days')"
+            />
+            <span class="block">Set automatic future publish date</span>
+          </a-radio>
+        </a-radio-group>
+      </template>
+      <a-button type="primary">Click me</a-button>
+    </a-popover>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 import MarkdownEditor from "../components/MarkdownEditor";
 
 export default {
@@ -38,6 +62,7 @@ export default {
     this.getTags();
   },
   methods: {
+    moment,
     getArticle(id) {
       this.$axios.get(`/articles/${id}`).then(response => {
         this.article = response.data;
@@ -57,8 +82,8 @@ export default {
       return this.$refs.mdEditor.getHtml();
     },
 
-    handleChange(value) {
-      this.selectedTagIds = value;
+    onChange(value) {
+      console.log(value);
     },
   },
 };

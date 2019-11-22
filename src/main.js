@@ -5,7 +5,16 @@ import store from "./store";
 
 import axios from "axios";
 
-import { Button, message, Select, Table, Tag } from "ant-design-vue";
+import {
+  Button,
+  DatePicker,
+  message,
+  Popover,
+  Radio,
+  Select,
+  Table,
+  Tag,
+} from "ant-design-vue";
 
 import "@/assets/css/tailwind.css";
 
@@ -13,6 +22,9 @@ Vue.config.productionTip = false;
 
 // 注册antd组件
 Vue.use(Button);
+Vue.use(DatePicker);
+Vue.use(Popover);
+Vue.use(Radio);
 Vue.use(Select);
 Vue.use(Table);
 Vue.use(Tag);
