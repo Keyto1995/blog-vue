@@ -5,7 +5,7 @@ import store from "./store";
 
 import axios from "axios";
 
-import { Button, message, Table, Tag } from "ant-design-vue";
+import { Button, message, Select, Table, Tag } from "ant-design-vue";
 
 import "@/assets/css/tailwind.css";
 
@@ -13,6 +13,7 @@ Vue.config.productionTip = false;
 
 // 注册antd组件
 Vue.use(Button);
+Vue.use(Select);
 Vue.use(Table);
 Vue.use(Tag);
 

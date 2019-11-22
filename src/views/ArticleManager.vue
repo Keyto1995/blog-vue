@@ -1,5 +1,6 @@
 <template>
   <div class="container m-auto p-5">
+    <a-button @click="newArticle()">New Article</a-button>
     <a-table :columns="columns" rowKey="id" :dataSource="articles">
       <template slot="title_" slot-scope="title">
         <span class="text-lg font-semibold">{{ title }}</span>
@@ -53,6 +54,9 @@ export default {
       this.$axios.get("/articles/all").then(response => {
         this.articles = response.data.content;
       });
+    },
+    newArticle() {
+      this.$router.push("/editor");
     },
   },
 };
