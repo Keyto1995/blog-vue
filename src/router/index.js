@@ -23,6 +23,15 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/Login.vue"),
   },
   {
+    path: "/manager/articles",
+    name: "articleManager",
+    component: () =>
+      import(
+        /* webpackChunkName: "articleManager" */ "../views/ArticleManager.vue"
+      ),
+    meta: { roles: ["AUTHOR"] },
+  },
+  {
     path: "/manager/tags",
     name: "tagManager",
     component: () =>
