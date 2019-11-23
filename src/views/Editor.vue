@@ -1,6 +1,8 @@
 <template>
   <div class="container mx-auto my-5 px-5">
-    <MarkdownEditor ref="mdEditor" :value="article.content" />
+    <MarkdownEditor ref="mdEditor" :value="content" />
+    <a-textarea placeholder="Title" v-model="title" />
+    <a-textarea placeholder="Description" :rows="4" v-model="description" />
     <a-select
       mode="multiple"
       class="w-full"
@@ -18,23 +20,28 @@
       placement="bottom"
     >
       <template slot="content">
-        <a-radio-group name="radioGroup" :defaultValue="1">
-          <a-radio class="block" :value="1">
+        <a-radio-group class="block" name="radioGroup" v-model="publishNow">
+          <a-radio class="block" :value="true">
             <span class="inline-block text-lg">Set it live now</span>
             <span class="block">Publish this post immediately</span>
           </a-radio>
-          <a-radio class="block" :value="2">
+          <a-radio class="block" :value="false">
             <span class="inline-block text-lg">Schedule it for later</span>
             <a-date-picker
               class="block"
+              :disabled="publishNow"
               @change="onChange"
               :disabledDate="current => current < moment().subtract(1, 'days')"
             />
             <span class="block">Set automatic future publish date</span>
           </a-radio>
         </a-radio-group>
+        <div class="flex justify-end">
+          <a-button type="dashed">Cancel</a-button>
+          <a-button type="primary" @click="publishArticle">Publish</a-button>
+        </div>
       </template>
-      <a-button type="primary">Click me</a-button>
+      <a-button type="primary">Publish</a-button>
     </a-popover>
   </div>
 </template>
@@ -50,7 +57,12 @@ export default {
   },
   data() {
     return {
-      article: Object,
+      id: null,
+      title: "",
+      description: "",
+      content: "",
+      publishNow: true,
+      publishDate: null,
       selectedTagIds: [],
       tags: [],
     };
@@ -65,8 +77,14 @@ export default {
     moment,
     getArticle(id) {
       this.$axios.get(`/articles/${id}`).then(response => {
-        this.article = response.data;
-        this.selectedTagIds = this.article.tags.map(tag => tag.id);
+        let article = response.data;
+        if (article.id) {
+          this.id = article.id;
+          this.title = article.title;
+          this.description = article.description;
+          this.content = article.content;
+          this.selectedTagIds = article.tags.map(tag => tag.id);
+        }
       });
     },
     getTags() {
@@ -75,15 +93,37 @@ export default {
       });
     },
 
-    getValue() {
+    getContent() {
       return this.$refs.mdEditor.getValue();
     },
     getHtml() {
       return this.$refs.mdEditor.getHtml();
     },
+    publishArticle() {
+      let data = {};
+      if (this.id) {
+        data.id = this.id;
+      }
+      data.title = this.title;
+      data.description = this.description;
+      data.content = this.getContent();
+      data.tags = this.selectedTagIds.map(id =>
+        this.tags.find(tag => tag.id === id)
+      );
+      if (this.publishNow) {
+        data.publishDate = moment().unix() * 1000;
+      } else {
+        data.publishDate = this.publishDate.unix() * 1000;
+      }
+
+      this.$axios.post(`/articles/`, data).then(response => {
+        console.log(response.data);
+      });
+    },
 
     onChange(value) {
-      console.log(value);
+      this.publishDate = value;
+      console.log(this.publishDate);
     },
   },
 };

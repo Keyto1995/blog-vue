@@ -8,6 +8,7 @@ import axios from "axios";
 import {
   Button,
   DatePicker,
+  Input,
   message,
   Popover,
   Radio,
@@ -23,6 +24,7 @@ Vue.config.productionTip = false;
 // 注册antd组件
 Vue.use(Button);
 Vue.use(DatePicker);
+Vue.use(Input);
 Vue.use(Popover);
 Vue.use(Radio);
 Vue.use(Select);
