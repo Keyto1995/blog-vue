@@ -49,6 +49,7 @@
     </a-popover>
     <a-button v-else @click="saveArticle(false)">Update</a-button>
     <span>{{ isNew ? "New" : isDraft ? "Draft" : "Published" }}</span>
+    <a-button @click="deleteArticle">Delete</a-button>
   </div>
 </template>
 
@@ -152,6 +153,11 @@ export default {
           this.initStatus(response.data);
         });
       }
+    },
+    deleteArticle() {
+      this.$axios.delete(`/articles/${this.id}`).then(() => {
+        this.$router.replace({ name: "articleManager" });
+      });
     },
 
     onChange(value) {
