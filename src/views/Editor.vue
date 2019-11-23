@@ -15,6 +15,7 @@
       </a-select-option>
     </a-select>
     <a-popover
+      v-if="isNew || isDraft"
       title="Ready to publish you article"
       trigger="click"
       placement="bottom"
@@ -38,11 +39,14 @@
         </a-radio-group>
         <div class="flex justify-end">
           <a-button type="dashed">Cancel</a-button>
-          <a-button type="primary" @click="publishArticle">Publish</a-button>
+          <a-button type="primary" @click="saveArticle(false)"
+            >Publish</a-button
+          >
         </div>
       </template>
       <a-button type="primary">Publish</a-button>
     </a-popover>
+    <a-button v-else @click="saveArticle(this.isDraft)">Update</a-button>
     <span>{{ isNew ? "New" : isDraft ? "Draft" : "Published" }}</span>
   </div>
 </template>
@@ -84,17 +88,27 @@ export default {
   },
   methods: {
     moment,
+    initStatus(article) {
+      if (article.id) {
+        this.id = article.id;
+        this.title = article.title;
+        this.description = article.description;
+        this.content = article.content;
+        if (article.publishDate) {
+          this.publishNow = false;
+          this.publishDate = article.publishDate;
+        } else {
+          this.publishNow = true;
+          this.publishDate = null;
+        }
+
+        this.selectedTagIds = article.tags.map(tag => tag.id);
+      }
+    },
     getArticle(id) {
       this.$axios.get(`/articles/${id}`).then(response => {
         let article = response.data;
-        if (article.id) {
-          this.id = article.id;
-          this.title = article.title;
-          this.description = article.description;
-          this.content = article.content;
-          this.publishDate = article.publishDate;
-          this.selectedTagIds = article.tags.map(tag => tag.id);
-        }
+        this.initStatus(article);
       });
     },
     getTags() {
@@ -109,28 +123,34 @@ export default {
     getHtml() {
       return this.$refs.mdEditor.getHtml();
     },
-    publishArticle() {
+    saveArticle(asDraft) {
       let data = {};
-      if (this.id) {
-        data.id = this.id;
-      }
       data.title = this.title;
       data.description = this.description;
       data.content = this.getContent();
       data.tags = this.selectedTagIds.map(id =>
         this.tags.find(tag => tag.id === id)
       );
-      if (this.publishNow) {
-        // 立刻发布
-        data.publishDate = moment().unix() * 1000;
+      if (asDraft) {
+        data.publishDate = null;
       } else {
-        // 按设定时间发布
-        data.publishDate = this.publishDate.unix() * 1000;
+        if (this.publishNow) {
+          // 立刻发布
+          data.publishDate = moment().unix() * 1000;
+        } else {
+          // 按设定时间发布
+          data.publishDate = this.publishDate.unix() * 1000;
+        }
       }
-
-      this.$axios.post(`/articles/`, data).then(response => {
-        console.log(response.data);
-      });
+      if (this.id) {
+        this.$axios.put(`/articles/${this.id}`, data).then(response => {
+          this.initStatus(response.data);
+        });
+      } else {
+        this.$axios.post(`/articles/`, data).then(response => {
+          this.initStatus(response.data);
+        });
+      }
     },
 
     onChange(value) {
