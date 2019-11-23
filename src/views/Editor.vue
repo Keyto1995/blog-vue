@@ -142,12 +142,12 @@ export default {
           data.publishDate = this.publishDate.unix() * 1000;
         }
       }
-      if (this.id) {
-        this.$axios.put(`/articles/${this.id}`, data).then(response => {
+      if (this.isNew) {
+        this.$axios.post(`/articles/`, data).then(response => {
           this.initStatus(response.data);
         });
       } else {
-        this.$axios.post(`/articles/`, data).then(response => {
+        this.$axios.put(`/articles/${this.id}`, data).then(response => {
           this.initStatus(response.data);
         });
       }
@@ -155,7 +155,6 @@ export default {
 
     onChange(value) {
       this.publishDate = value;
-      console.log(this.publishDate);
     },
   },
 };
