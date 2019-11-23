@@ -43,6 +43,7 @@
       </template>
       <a-button type="primary">Publish</a-button>
     </a-popover>
+    <span>{{ isNew ? "New" : isDraft ? "Draft" : "Published" }}</span>
   </div>
 </template>
 
@@ -73,6 +74,14 @@ export default {
     }
     this.getTags();
   },
+  computed: {
+    isNew() {
+      return this.id === null;
+    },
+    isDraft() {
+      return this.publishDate === null;
+    },
+  },
   methods: {
     moment,
     getArticle(id) {
@@ -83,6 +92,7 @@ export default {
           this.title = article.title;
           this.description = article.description;
           this.content = article.content;
+          this.publishDate = article.publishDate;
           this.selectedTagIds = article.tags.map(tag => tag.id);
         }
       });
@@ -111,8 +121,10 @@ export default {
         this.tags.find(tag => tag.id === id)
       );
       if (this.publishNow) {
+        // 立刻发布
         data.publishDate = moment().unix() * 1000;
       } else {
+        // 按设定时间发布
         data.publishDate = this.publishDate.unix() * 1000;
       }
 
