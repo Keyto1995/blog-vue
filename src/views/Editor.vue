@@ -14,6 +14,7 @@
         {{ tag.name }}
       </a-select-option>
     </a-select>
+    <a-button @click="saveArticle(true)">Save as Draft</a-button>
     <a-popover
       v-if="isNew || isDraft"
       title="Ready to publish you article"
@@ -46,7 +47,7 @@
       </template>
       <a-button type="primary">Publish</a-button>
     </a-popover>
-    <a-button v-else @click="saveArticle(this.isDraft)">Update</a-button>
+    <a-button v-else @click="saveArticle(false)">Update</a-button>
     <span>{{ isNew ? "New" : isDraft ? "Draft" : "Published" }}</span>
   </div>
 </template>
