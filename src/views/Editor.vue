@@ -52,7 +52,7 @@
     </a-popover>
     <a-button v-else @click="saveArticle(false)">Update</a-button>
     <span>{{ isNew ? "New" : isDraft ? "Draft" : "Published" }}</span>
-    <a-button @click="deleteArticle">Delete</a-button>
+    <a-button type="danger" @click="deleteArticle">Delete</a-button>
   </div>
 </template>
 
