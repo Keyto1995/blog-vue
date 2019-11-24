@@ -1,26 +1,37 @@
 <template>
   <div class="container mx-auto my-5 px-5">
     <MarkdownEditor ref="mdEditor" :value="content" />
-    <a-textarea placeholder="Title" v-model="title" />
-    <a-textarea placeholder="Description" :rows="4" v-model="description" />
-    <a-select
-      mode="multiple"
-      class="w-full"
-      :value="selectedTagIds"
-      @change="value => (this.selectedTagIds = value)"
-      placeholder="Please select"
+    <a-button @click="showDrawer">config</a-button>
+    <a-drawer
+      title="Article Settings"
+      placement="right"
+      @close="onClose"
+      :width="350"
+      :visible="drawerVisible"
     >
-      <a-select-option v-for="tag in tags" :key="tag.id">
-        {{ tag.name }}
-      </a-select-option>
-    </a-select>
-    <a-button @click="saveArticle(true)">Save as Draft</a-button>
+      <a-textarea placeholder="Title" v-model="title" />
+      <a-textarea placeholder="Description" :rows="4" v-model="description" />
+      <a-select
+        mode="multiple"
+        class="w-full"
+        :value="selectedTagIds"
+        @change="value => (this.selectedTagIds = value)"
+        placeholder="Please select"
+      >
+        <a-select-option v-for="tag in tags" :key="tag.id">
+          {{ tag.name }}
+        </a-select-option>
+      </a-select>
+      <a-button @click="saveArticle(true)">Save as Draft</a-button>
+      <a-button type="danger" @click="deleteArticle">Delete</a-button>
+    </a-drawer>
+
     <a-popover
       v-if="isNew || isDraft"
       title="Ready to publish you article"
       trigger="click"
       placement="bottom"
-      v-model="visible"
+      v-model="popoverVisible"
     >
       <template slot="content">
         <a-radio-group class="block" name="radioGroup" v-model="publishNow">
@@ -40,7 +51,7 @@
           </a-radio>
         </a-radio-group>
         <div class="flex justify-end">
-          <a-button type="dashed" @click="() => (this.visible = false)">
+          <a-button type="dashed" @click="() => (this.popoverVisible = false)">
             Cancel
           </a-button>
           <a-button type="primary" @click="saveArticle(false)">
@@ -52,7 +63,6 @@
     </a-popover>
     <a-button v-else @click="saveArticle(false)">Update</a-button>
     <span>{{ isNew ? "New" : isDraft ? "Draft" : "Published" }}</span>
-    <a-button type="danger" @click="deleteArticle">Delete</a-button>
   </div>
 </template>
 
@@ -76,7 +86,9 @@ export default {
       selectedTagIds: [],
       tags: [],
       // 是否显示气泡框
-      visible: false,
+      popoverVisible: false,
+      // 是否显示右侧抽屉
+      drawerVisible: false,
     };
   },
   beforeMount() {
@@ -163,6 +175,12 @@ export default {
       this.$axios.delete(`/articles/${this.id}`).then(() => {
         this.$router.replace({ name: "articleManager" });
       });
+    },
+    showDrawer() {
+      this.drawerVisible = true;
+    },
+    onClose() {
+      this.drawerVisible = false;
     },
 
     onChange(value) {
