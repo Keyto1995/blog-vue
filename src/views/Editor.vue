@@ -20,6 +20,7 @@
       title="Ready to publish you article"
       trigger="click"
       placement="bottom"
+      v-model="visible"
     >
       <template slot="content">
         <a-radio-group class="block" name="radioGroup" v-model="publishNow">
@@ -39,10 +40,12 @@
           </a-radio>
         </a-radio-group>
         <div class="flex justify-end">
-          <a-button type="dashed">Cancel</a-button>
-          <a-button type="primary" @click="saveArticle(false)"
-            >Publish</a-button
-          >
+          <a-button type="dashed" @click="() => (this.visible = false)">
+            Cancel
+          </a-button>
+          <a-button type="primary" @click="saveArticle(false)">
+            Publish
+          </a-button>
         </div>
       </template>
       <a-button type="primary">Publish</a-button>
@@ -72,6 +75,8 @@ export default {
       publishDate: null,
       selectedTagIds: [],
       tags: [],
+      // 是否显示气泡框
+      visible: false,
     };
   },
   beforeMount() {
