@@ -120,7 +120,7 @@ export default {
         this.content = article.content;
         if (article.publishDate) {
           this.publishNow = false;
-          this.publishDate = article.publishDate;
+          this.publishDate = moment(article.publishDate);
         } else {
           this.publishNow = true;
           this.publishDate = null;
