@@ -1,9 +1,11 @@
 <template>
   <div class="container m-auto p-5">
-    <a-button @click="newArticle()">New Article</a-button>
+    <a-button class="bg-green-400" @click="newArticle">New Article</a-button>
     <a-table :columns="columns" rowKey="id" :dataSource="articles">
-      <template slot="title_" slot-scope="title">
-        <span class="text-lg font-semibold">{{ title }}</span>
+      <template slot="title_" slot-scope="title, record">
+        <router-link :to="{ name: 'article', params: { id: record.id } }">
+          <span class="text-lg font-semibold">{{ title }}</span>
+        </router-link>
       </template>
       <template slot="tags" slot-scope="tags">
         <a-tag v-for="tag in tags" :key="tag.id">{{ tag.name }}</a-tag>
