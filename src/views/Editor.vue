@@ -69,6 +69,7 @@
 <script>
 import moment from "moment";
 import MarkdownEditor from "../components/MarkdownEditor";
+import "github-markdown-css";
 
 export default {
   name: "editor",
@@ -96,6 +97,10 @@ export default {
       this.getArticle(this.$route.query.id);
     }
     this.getTags();
+  },
+  mounted() {
+    let el = document.querySelector("div.tui-editor-contents");
+    el.classList.add("markdown-body");
   },
   computed: {
     isNew() {
