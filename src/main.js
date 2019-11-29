@@ -44,7 +44,7 @@ axios.interceptors.response.use(
     if (error) {
       // 请求配置发生的错误
       if (!error.response) {
-        return console.log("Error", error.message);
+        return error.message;
       }
 
       // 获取状态码
