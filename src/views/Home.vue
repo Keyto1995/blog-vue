@@ -11,8 +11,8 @@
             <span class="block text-teal-600 text-xl">{{ article.title }}</span>
             <span>{{ article.description }}</span>
           </router-link>
-          <hr class="my-2" />
-          <div class="px-4">
+          <hr class="my-2" v-if="article.tags.length > 0" />
+          <div class="px-4" v-if="article.tags.length > 0">
             标签：
             <ul class="inline">
               <li
