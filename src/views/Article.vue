@@ -1,5 +1,7 @@
 <template>
   <div class="container mx-auto my-5 px-5">
+    <h1 class="text-4xl font-bold">{{ article.title }}</h1>
+    <hr class="my-3" />
     <Markdown :md="article.content" />
   </div>
 </template>
