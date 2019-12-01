@@ -68,6 +68,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (to.name === "login") {
+    next();
+    return;
+  }
   let needRoles = to.matched[0].meta.roles;
   if (!needRoles || needRoles.length === 0) {
     next();
