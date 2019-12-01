@@ -35,7 +35,7 @@ Vue.use(Tag);
 Vue.prototype.$message = message;
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV === "production" ? "https://api.keyto.top/" : "/api";
+  process.env.NODE_ENV === "production" ? "https://blog.keyto.top/api" : "/api";
 axios.interceptors.response.use(
   res => {
     return res;
