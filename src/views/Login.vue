@@ -63,6 +63,11 @@ export default {
             });
             this.$router.go(-1);
           }
+        })
+        .catch(error => {
+          if (error.response) {
+            this.$message.error(error.response.data.msg, 20);
+          }
         });
     },
   },

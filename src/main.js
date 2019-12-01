@@ -50,14 +50,11 @@ axios.interceptors.response.use(
       // 获取状态码
       const status = error.response.status;
 
-      // 提示错误信息
-      Vue.prototype.$message.error(status, 10);
-
       // 错误状态处理
       if (status === 401) {
-        router.push("/login");
+        router.push({ name: "login" });
       } else if (status === 403) {
-        router.push("/login");
+        router.push({ name: "login" });
       } else if (status >= 404 && status < 422) {
         router.push("/404");
       }
