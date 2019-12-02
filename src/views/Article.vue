@@ -26,7 +26,11 @@ export default {
     getArticle(id) {
       this.$axios.get(`/articles/${id}`).then(response => {
         this.article = response.data;
+        this.updateDocumentTitle(this.article.title);
       });
+    },
+    updateDocumentTitle(title) {
+      document.title = title;
     },
   },
 };
