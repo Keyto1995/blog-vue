@@ -32,3 +32,9 @@ export default {
   methods: {},
 };
 </script>
+
+<style lang="scss" scoped>
+/deep/ ol {
+  list-style-type: decimal;
+}
+</style>
