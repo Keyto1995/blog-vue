@@ -37,4 +37,7 @@ export default {
 /deep/ ol {
   list-style-type: decimal;
 }
+/deep/ ul {
+  list-style-type: disc;
+}
 </style>
