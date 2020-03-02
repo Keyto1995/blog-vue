@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="text-gray-900">
+  <div id="app" class="text-gray-900 flex flex-col h-full">
     <header
-      class="flex bg-white border-b border-gray-200 fixed inset-x-0 h-16 items-center"
+      class="flex bg-white border-b border-gray-200 flex-initial inset-x-0 h-16 items-center"
     >
       <div class="w-full px-6">
         <div class="flex items-center justify-between">
@@ -13,8 +13,18 @@
         </div>
       </div>
     </header>
-    <div class="h-16"></div>
-    <router-view />
+    <router-view class="flex-auto" />
+    <footer class="flex bg-teal-500 h-12 items-center">
+      <section class="container mx-auto">
+        © 2016-2020 keyto.top 版权所有 ICP证：
+        <a
+          href="http://www.beian.miit.gov.cn"
+          class="hover:text-pink-600"
+          target="_blank"
+          >苏ICP备18009894号</a
+        >
+      </section>
+    </footer>
   </div>
 </template>
 
