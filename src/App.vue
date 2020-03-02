@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="text-gray-900 flex flex-col h-full">
     <header
-      class="flex bg-white border-b border-gray-200 flex-initial inset-x-0 h-16 items-center"
+      class="flex bg-white border-b border-gray-200 inset-x-0 h-16 items-center"
     >
       <div class="w-full px-6">
         <div class="flex items-center justify-between">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </header>
-    <router-view class="flex-auto" />
+    <router-view id="main-content" class="flex-auto" />
     <footer class="flex bg-teal-500 h-12 items-center">
       <section class="container mx-auto">
         © 2016-2020 keyto.top 版权所有 ICP证：
@@ -40,4 +40,15 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+header {
+  flex: 0 0 auto;
+}
+#main-content {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex: 0 0 auto;
+}
+</style>
